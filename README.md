@@ -41,3 +41,6 @@ export function App() {
 ```
 
 O *createNativeStackNavigator()* contem 2 propriedades, **Screen** e **Navigator**, ambos são componentes usados para configurar o navegador. Os "Navigators" devem possuir as "Screen", que exibirão o nome da página e o componente referente a view, neste caso da seguinte forma:
+<br/>
+<br/>
+![basic_stack_nav-7388d409c412d0c728a0903301338433](https://user-images.githubusercontent.com/90003046/233174819-459c6943-0cce-47e7-9f60-0565736695d3.png)
