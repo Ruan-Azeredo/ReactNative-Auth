@@ -11,9 +11,33 @@ npx expo start
 npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 ```
+
 - Native Base
 ```bash
 npm install native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2
+```
+
+- Native Wind
+```bash
+npm add nativewind
+npm add --dev tailwindcss
+```
+### Setup
+Rodar *npx tailwindcss init* para criar o arquivo *tailwind.config.js*.
+Adicionar diretorios que dererão receber acesso ao tailwind em *content: []* do tailwind.config:
+```JavaScript
+content: ["./App.{js,jsx,ts,tsx}", "./<custom directory>/**/*.{js,jsx,ts,tsx}"],
+``` 
+
+Adicionar dependencia no arquivo *babel.config.js*
+```JavaScript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
++   plugins: ["nativewind/babel"],
+  };
+};
 ```
 
 ## React Navigation
