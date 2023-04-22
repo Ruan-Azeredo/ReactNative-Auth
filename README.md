@@ -11,6 +11,10 @@ npx expo start
 npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 ```
+- Native Base
+```bash
+npm install native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2
+```
 
 ## React Navigation
 Um exemplo de como funciona o React Navigation, é o que está na documentação, que consiste em :
