@@ -16,7 +16,17 @@ npm install @react-navigation/native-stack
 ```bash
 npm install native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2
 ```
-
+### Setup
+Adiconar o *NativeBaseProvider* em *App.js*
+```JavaScript
+export default function App() {
+  return (
+    <NativeBaseProvider>
+      <Router/>
+    </NativeBaseProvider>
+  );
+}
+```
 - Native Wind
 ```bash
 npm add nativewind
