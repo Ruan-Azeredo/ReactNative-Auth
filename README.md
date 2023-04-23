@@ -50,6 +50,12 @@ module.exports = function (api) {
 };
 ```
 
+- React Native Heroicons
+```bash
+npm i react-native-heroicons react-native-svg
+```
+*Ocorreu um erro com a versão do react-native-svg, o proprio terminal indicou utilzar esssa intalação para resolver tais pendencias: npx expo install react-native-safe-area-context@4.5.0 react-native-svg@13.4.0
+
 ## React Navigation
 Um exemplo de como funciona o React Navigation, é o que está na documentação, que consiste em :
 ```JavaScript
