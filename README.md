@@ -98,3 +98,35 @@ const navigation = useNavigation()
 
 <Button onPress={() => navigation.navigate('Perfil')}>Ir para Perfil<Button>
 ```
+## Context
+Para a validação e global da aplicação, utiliza-se a senguinte logica. Existe um *Context* que envolve a aplicação, o qual fará a chamada da API para validar o usuario quando este faz o login. Sendo feito este login, a variavel **authData** será alterada para os dados do usuario. Desta forma, é possivel criar uma logica no *Router.jsx* que fará com que caso, o authData seja diferente de undefined, apenas "existirá" a rota da view de Login, caso contrario, será possivel acessar outra **Stack** de rotas.
+A estrutura do context de Auth fica desta forma:
+```JavaScript
+import { createContext, useState } from "react";
+
+export const AuthContext = createContext(props)
+
+export function AuthProvider() {
+    
+    const [authData, setAuthData] = useState()
+
+    async function signIn(email, password) {
+        // chama API
+        const auth = {infosDoUsuario: 'Infos'}
+
+        setAuthData(auth)
+    }
+
+    function signOut() {
+        // logout
+
+        setAuthData(undefined)
+    }
+
+    return (
+        <AuthContext.Provider value={{authData, signIn, signOut}}>
+            {props.children}
+        </AuthContext.Provider>
+    )
+}
+```
