@@ -88,3 +88,13 @@ O *createNativeStackNavigator()* contem 2 propriedades, **Screen** e **Navigator
 <br/>
 <br/>
 ![basic_stack_nav-7388d409c412d0c728a0903301338433](https://user-images.githubusercontent.com/90003046/233174819-459c6943-0cce-47e7-9f60-0565736695d3.png)
+
+Para fazer a navegação atravez de botões que levam a links de outras views, utilizar este esquema de estrutura:
+- o 'Perfil' que é utilizado para indicar para qual view deve direcionar se refere ao *name* que está em **<Stack.Screen/>**
+```JavaScript
+import { useNavigation } from "@react-navigation/native"
+
+const navigation = useNavigation()
+
+<Button onPress={() => navigation.navigate('Perfil')}>Ir para Perfil<Button>
+```
