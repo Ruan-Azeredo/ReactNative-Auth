@@ -6,7 +6,7 @@ export const AuthContext = createContext()
 
 export function AuthProvider(props) {
     
-    const [authData, setAuthData] = useState({ token: undefined, email: undefined, name: undefined })
+    const [authData, setAuthData] = useState(undefined)
 
     async function signIn(email, password) {
         try {
