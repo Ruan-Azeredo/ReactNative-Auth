@@ -7,12 +7,14 @@ npx expo start
 ## Dependencias
 
 - React Navigation
+-| https://reactnavigation.org/
 ```bash
 npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
 ```
 
 - Native Base
+-| https://nativebase.io/
 ```bash
 npm install native-base react-native-svg@12.1.1 react-native-safe-area-context@3.3.2
 ```
@@ -28,6 +30,7 @@ export default function App() {
 }
 ```
 - Native Wind
+-| https://www.nativewind.dev/
 ```bash
 npm add nativewind
 npm add --dev tailwindcss
@@ -55,6 +58,12 @@ module.exports = function (api) {
 npm i react-native-heroicons react-native-svg
 ```
 *Ocorreu um erro com a versão do react-native-svg, o proprio terminal indicou utilzar esssa intalação para resolver tais pendencias: npx expo install react-native-safe-area-context@4.5.0 react-native-svg@13.4.0
+
+- Async Storage
+-| https://react-native-async-storage.github.io/async-storage/docs/usage/
+```bash
+npx expo install @react-native-async-storage/async-storage
+```
 
 ## React Navigation
 Um exemplo de como funciona o React Navigation, é o que está na documentação, que consiste em :
@@ -160,3 +169,29 @@ return (
 )
 ```
 Caso venha a ser feito niveis de acesso mais complexos, cada nivel de acesso deve possuir sua propria Stack de rotas, e de acordo com o *type* que será recebido de authData, será definida em qual Stack de rotas o usuario estará depois de logado.
+### Async Storage
+A função do async storage é fazer com que quando o usuario faça o login na aplicação, mesmo que a aplicação feche, quando ela for reabrir não precise fazer o login novamente. Para isso, o assync storage vai salvar no *Storage* do dispositivo a verificação e as credenciais do usuario.
+Para tal, adiciona-se na função **signIn()** o setItem de *AsyncStorage*, onde passamos o nome da variavel, e a informaçãoq ue queremos salvar. Um ponto importante é que de acordo com a documentação, não é possivel salvar objetos, sendo assim, deve-se passaro objeto para por JSON.stringify() para tranforma-lo em string e depois por JSON.parse() para pegar essa string e a converter para objeto novamente.
+Desta forma, foi adicionado este trecho na função signIn():
+```JavaScript
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
+async function signIn(email, password) {
+
+    AsyncStorage.setItem('authData-storage', JSON.stringify(auth))
+}
+``` 
+Vale salientar que deve ser feito o processo semelhante na função de **logOut()**, porem com o *removeItem()*.
+Para a aplicação verificar o Storage no inicio da execução do aplicativo, cria-se uma função que utilizará o **getItem()** passando o nome da variavel no storage para pegar esta informação, caso exista. Esta função deve ser executada toda vez que o aplicativo for iniciado, sendo assim a sua chamada está dentro de um *useEffect()*, que cumpre exatamente esta função.
+```JavaScript
+useEffect(() => {
+    loadStorage()
+}, [])
+
+async function loadStorage() {
+    const auth = await AsyncStorage.getItem('authData-storage')
+    if (auth) {
+        setAuthData(JSON.parse(auth))
+    }
+}
+```
