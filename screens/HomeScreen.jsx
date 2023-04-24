@@ -60,6 +60,7 @@ export function HomeScreen() {
                                 <Text className='text-base font-medium text-white'>Perfil</Text>
                             </View>
                         </Button>
+                        <Button onPress={() => navigation.navigate('Administer')}><Text>Admin</Text></Button>
                         <Button className="bg-transparent" onPress={() => signOut()}>
                             <View className={`w-52 flex-row text-white gap-2 items-center mx-4 p-2 rounded-md my-2`}>
                                 <View className={`w-7`}><ArrowRightOnRectangleIcon color='white'/></View>
