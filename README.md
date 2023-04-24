@@ -98,7 +98,8 @@ const navigation = useNavigation()
 
 <Button onPress={() => navigation.navigate('Perfil')}>Ir para Perfil<Button>
 ```
-## Context
+## Fluxo de Autenticação
+### Context
 Para a validação e global da aplicação, utiliza-se a senguinte logica. Existe um *Context* que envolve a aplicação, o qual fará a chamada da API para validar o usuario quando este faz o login. Sendo feito este login, a variavel **authData** será alterada para os dados do usuario. Desta forma, é possivel criar uma logica no *Router.jsx* que fará com que caso, o authData seja diferente de undefined, apenas "existirá" a rota da view de Login, caso contrario, será possivel acessar outra **Stack** de rotas.
 A estrutura do context de Auth fica desta forma:
 ```JavaScript
@@ -130,3 +131,32 @@ export function AuthProvider() {
     )
 }
 ```
+* É bem importante lembrar de envolve o APP dentro do **<AuthProvider/>**, para que o context funcione de forma global.
+### Tela de login
+Na tela de login, pegaremos os valores digitados nos Inputs
+```JavaScript
+const {signIn} = useContext(AuthContext)
+
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+
+return (
+    <View>
+        <Input placeholder="E-mail" onChangeText={setEmail}/>
+        <Input placeholder="Senha" onChangeText={setPassword}/>
+
+        <Button onPress={() => signIn(email, password)}>Login</Button>
+    </View>
+)
+```
+### Router
+Dentro de *Router.jsx* deve existir a lógica que basicamente vai dizer quais rotas a aplicação tem acesso, dado sua autenticação. Caso a autenticação não esteja feita, ele tem acesso apenas a Stack de rotas de usuario não autenticado, que é apenas a rota de SignIn. Caso, ele esteja autenticados, ele possui acesso a Stack de rotas de usuario atenticados, que neste caso são as rotas de Home e Perfil.
+```JavaScript
+const { authData } = useContext(AuthContext)
+return (
+    <NavigationContainer>
+        {authData != undefined ? <UserStack/> : <AuthStack/>}
+    </NavigationContainer>
+)
+```
+Caso venha a ser feito niveis de acesso mais complexos, cada nivel de acesso deve possuir sua propria Stack de rotas, e de acordo com o *type* que será recebido de authData, será definida em qual Stack de rotas o usuario estará depois de logado.
